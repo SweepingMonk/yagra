@@ -52,7 +52,7 @@ def post():
 
     newuser.add_to_db()
     http_host = os.getenv('HTTP_HOST')
-    print 'Location: http://{0}/views/login.html'.format(http_host)
+    print 'Location: http://{0}/actions/login.py'.format(http_host)
     print
 
 def verify_email(email):

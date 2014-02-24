@@ -2,13 +2,14 @@
 <title>首页</title> 
 <body >
 	<div id="top_bar" class="top_bar">
-		<a href="/cgi-bin/logout.py">登出</a>
+		<a href="/actions/logout.py">登出</a>
 	</div>
 	<div id="content" class="content">
 		<h1>管理你的账户</h1>
 		<div id="info" class="info">
-			<img src="/userimg/000.img" alt="默认头像" width="100px" height="100px">
-			<p>wangxiang1124@gmail.com</p>
+			<img src="{image_path}" alt="默认头像" width="100px" height="100px">
+			<p>{email}</p>
+			<p><a href="/actions/changeimg.py">更换默认头像</a></p>
 			<p><a href="/avatar/000.img" >图像链接</a>
 		</div>
 	</div>

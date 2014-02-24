@@ -24,11 +24,12 @@ class User(object):
         result = db.get_user_by_email(self.email)
         if result == None:
             return False
-        elif result[1] != self.password:
+        elif result[2] != self.password:
             return False
         else:
             self.id_ = result[0]
             self.default_image = result[3]
+            return True
 
     def exists(self):
         """

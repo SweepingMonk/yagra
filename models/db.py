@@ -116,7 +116,7 @@ def change_password(id_, password):
 
 if __name__ == '__main__':
     #c = get_db_connection()
-    init_db()
-    add_user('wangxiang1124@gmail.com', '123456')
-    change_default_image(1, '00000000000.img')
-    print get_user_by_id(1)
+    #init_db()
+    #add_user('wangxiang1124@gmail.com', '123456')
+    #change_default_image(1, '00000000000.img')
+    print get_user_by_email("wangxiang1124@gmail.com")
