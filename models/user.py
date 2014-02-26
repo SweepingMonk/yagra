@@ -14,6 +14,7 @@ class User(object):
         self.email = None
         self.password = None
         self.default_image = None
+        self.email_digest = None
 
     def auth(self):
         """
@@ -29,6 +30,7 @@ class User(object):
         else:
             self.id_ = result[0]
             self.default_image = result[3]
+            self.email_digest = result[4]
             return True
 
     def exists(self):
@@ -40,6 +42,21 @@ class User(object):
             return True
         else:
             return False
+
+    def load_by_email_digest(self):
+        """
+        load user data according email_digest,if user doesn't exist
+        return false, or load user data and return true
+        """
+        result = db.get_user_by_email_digest(self.email_digest)
+        if result is None:
+            return False
+        else:
+            self.id_ = result[0]
+            self.email = result[1]
+            self.password = result[2]
+            self.default_image = result[3]
+            return True
 
     def add_to_db(self):
         """

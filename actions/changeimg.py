@@ -1,78 +1,57 @@
 #!/usr/bin/env python
 #_*_coding:utf-8_*_
 import os
-import re
-import cgi
 import cgitb
 import md5
 
-from libhelper import user, get_cookie_session
+import helper
 
 cgitb.enable()
 
-def error_process(error_message):
-    """
-    post error function
-    """
-    print "Content-Type: text/html"
-    print
-    with open('../views/changeimg.html', 'r') as fp:
-        content = fp.read()
-        print content.format(error_message=error_message)
-
-def get():
+def get(http_request, http_response):
     """
     http get function
     """
-    cookie, session, session_file = get_cookie_session()
+    session = http_request.get_session()
 
     if "user" not in session:
-        print "Location: http://{0}/actions/login.py"\
-                .format(os.getenv("HTTP_HOST"))
-        print cookie.output()
-        print
+        http_response.send_redirect("login.py")
     else:
-        print "Content-Type: text/html"
-        print cookie.output()
-        print
-        with open('../views/changeimg.html', 'r') as fp:
-            content = fp.read()
-            print content.format(error_message="")
+        http_response.send_html("changeimg.html", error_message="")
 
-    session_file.close()
+    http_request.close_session_file()
 
-def post():
+def post(http_request, http_response):
     """
     http post function
     """
-    form = cgi.FieldStorage()
+    form = http_request.parameters
     image = form["image"]
-    if image is None:
-        return error_process("请选择文件后再提交！")
-    fp = image.file
+    if image is None or image.filename == "":
+        return http_response.send_html(
+                "changeimg.html",
+                error_message="请选择文件后再提交！")
+    image_fp = image.file
     suffix = image.filename[image.filename.rindex("."):] #get img suffix
-    buff = fp.read()
-    fp.close()
+    buff = image_fp.read()
+    image_fp.close()
     file_name = "".join([md5.new(buff).hexdigest(), suffix])
 
-    cookie, session, session_file = get_cookie_session()
+    session = http_request.get_session()
     current_user = session["user"]
     if not os.path.exists("../userimage/{0}".format(current_user.id_)):
         os.mkdir("../userimage/{0}".format(current_user.id_))
-    with open("../userimage/{0}/{1}".format(current_user.id_, file_name), "wb") as f:
+    with open("../userimage/{0}/{1}".format(current_user.id_, file_name), "wb")\
+            as f:
         f.write(buff)
     current_user.default_image = file_name
     current_user.save_default_image()
-    session_file.close()
+    http_request.close_session_file()
 
-    http_host = os.getenv('HTTP_HOST')
-    print 'Location: http://{0}/actions/index.py'.format(http_host)
-    print cookie.output()
-    print
+    http_response.send_redirect("index.py")
 
 if __name__ == '__main__':
-    req_mtd = os.getenv('REQUEST_METHOD')
-    if  req_mtd == 'GET':
-        get()
-    elif req_mtd == 'POST':
-        post()
+    if helper.http_request.http_method == "GET":
+        get(helper.http_request, helper.http_response)
+    elif helper.http_request.http_method == "POST":
+        post(helper.http_request, helper.http_response)

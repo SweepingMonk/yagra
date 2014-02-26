@@ -1,83 +1,53 @@
 #!/usr/bin/env python
 #_*_coding:utf-8_*_
-import os
-import re
-import cgi
 import cgitb
-
-from libhelper import user, get_cookie_session
+import helper
 
 cgitb.enable()
 
-def error_process(error_message):
-    """
-    post error function
-    """
-    print "Content-Type: text/html"
-    print
-    with open('../views/login.html', 'r') as fp:
-        content = fp.read()
-        print content.format(error_message=error_message)
-
-def get():
+def get(http_request, http_response):
     """
     http get function
     """
-    cookie, session, session_file = get_cookie_session()
-
+    session = http_request.get_session()
+    http_request.close_session_file()
     if "user" in session:
-        print "Location: http://{0}/actions/index.py".format(os.getenv("HTTP_HOST"))
-        print cookie.output()
-        print
+        http_response.send_redirect("index.py")
     else:
-        print "Content-Type: text/html"
-        print cookie.output()
-        print
-        with open('../views/login.html', 'r') as fp:
-            content = fp.read()
-            print content.format(error_message='')
-    session_file.close()
+        http_response.send_html("login.html", error_message="")
 
-def post():
+def post(http_request, http_response):
     """
     http post function
     """
-    form = cgi.FieldStorage()
+    form = http_request.parameters
     email = form.getfirst('email')
     password = form.getfirst('password')
     if email is None or password is None:
-        return error_process("邮箱和密码不能为空！")
+        return http_response.send_html(
+                "login.html",
+                error_message="邮箱和密码不能为空！")
 
-    if not verify_email(email):
-        return error_process('输入的邮箱地址格式不正确！')
+    if not helper.verify_email(email):
+        return http_response.send_html(
+                "login.html",
+                error_message="输入的邮箱地址格式不正确！")
 
-    newuser = user.User()
+    newuser = helper.User()
     newuser.email = email
     newuser.password = password
     if not newuser.auth():
-        return error_process('用户名密码不匹配，或者该用户不存在！')
+        return http_response.send_html(
+                "login.html",
+                error_message="用户名密码不匹配，或者该用户不存在！")
 
-    cookie, session, session_file = get_cookie_session()
+    session = http_request.get_session()
     session["user"] = newuser
-    session_file.close()
-    http_host = os.getenv('HTTP_HOST')
-    print 'Location: http://{0}/actions/index.py'.format(http_host)
-    print cookie.output()
-    print
-
-def verify_email(email):
-    """
-    verify the email format is correct
-    """
-    regexpstr = r'[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+(?:\.[a-zA-z]{2,6}){1,3}'
-    if re.match(regexpstr, email):
-        return True
-    else:
-        return False
+    http_request.close_session_file()
+    http_response.send_redirect("index.py")
 
 if __name__ == '__main__':
-    req_mtd = os.getenv('REQUEST_METHOD')
-    if  req_mtd == 'GET':
-        get()
-    elif req_mtd == 'POST':
-        post()
+    if helper.http_request.http_method == "GET":
+        get(helper.http_request, helper.http_response)
+    elif helper.http_request.http_method == "POST":
+        post(helper.http_request, helper.http_response)
