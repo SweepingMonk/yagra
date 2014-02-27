@@ -1,0 +1,125 @@
+body{
+	font-family: Arial, 微软雅黑, sans-serif;
+	font-size: 18px;
+	background: none repeat scroll 0 0 #F1F1F1;
+	margin: 0;
+}
+
+a{
+	color: #0074A2;
+	text-decoration: none;
+}
+#header{
+	background: none repeat scroll 0 0 #222222;
+	height: 50px;
+}
+
+#logo{
+	width: 900px;
+	margin: 0 auto;
+}
+
+#logo a{
+	display: inline-block;
+	height: 24px;
+	padding: 13px 0;
+	color: #FFFFFF;
+	float: right;
+}
+#content{
+	margin: 20px auto;
+}
+
+#error{
+	width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+.error{
+	color: red;
+	display: inline-block;
+	width:650px;
+	height: 30px;
+	text-align: center;
+}
+
+#form{
+	width: 630px;
+	margin: 0 auto;
+	background: none repeat scroll 0 0 #FFFFFF;
+	padding: 10px;
+}
+
+#form h1{
+	font-size: 30px;
+	margin: 10px 10px 20px 10px;
+}
+#form label{
+	display: inline-block;
+	height: 40px;
+	width: 150px;
+	text-align: right;
+	margin: 5px 10px 5px 50px;
+}
+
+#form .field{
+	display: inline-block;
+	height:40px;
+	width: 300px;
+	font-size: 20px;
+	font-family: Arial, 微软雅黑, sans-serif;
+	border-style: solid;
+	border-width: 1.5px;
+}
+
+#form .button{
+	background: none repeat scroll 0 0 #1E8CBE;
+	display: inline;
+	height: 35px;
+	width: 100px;
+	color: #FFFFFF;
+	font-size: 22px;
+	margin: 10px 10px 10px 215px;
+	border: solid 1px ;
+	border-radius: 5px;
+}
+
+#form a{
+	display: inline-block;
+	height: 30px;
+	font-size:20px;
+	padding: 5px 0 0 0;
+	margin: 10px 115px 10px 10px;
+	float: right;
+}
+
+#info_box{
+	width: 900px;
+	margin: 10px auto;
+	background: none repeat scroll 0 0 #FFFFFF
+}
+
+#info_box h1{
+	font-size: 30px;
+	margin: 10px 0 20px 10px;
+}
+#info img{
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	float: left;
+}
+
+#info .address{
+	font-size: 23px;
+	padding: 20px 0 10px 0;
+	margin: 0;
+}
+
+#info .tip{
+	font-size: 20px;
+	padding: 20px 0 20px 0;
+	margin: 0;
+}

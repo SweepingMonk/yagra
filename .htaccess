@@ -1,0 +1,5 @@
+Require all granted
+RewriteEngine on
+RewriteRule ^avatar/(\w{32})$ actions/avatar.py?uid=$1
+RewriteRule ^([a-z]+)$ actions/$1.py
+

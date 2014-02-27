@@ -95,7 +95,7 @@ class HttpResponse(object):
         redirect to destination action
         """
         http_host = os.getenv('HTTP_HOST')
-        self.header["Location"] = "http://{0}/actions/{1}"\
+        self.header["Location"] = "http://{0}/{1}"\
                 .format(http_host, location)
         self.__print_header()
 
@@ -112,7 +112,8 @@ class HttpResponse(object):
         """
         for key in self.header:
             print ": ".join([key, self.header[key]])
-        print self.cookie.output()
+        if len(self.cookie) > 0:
+            print self.cookie.output()
         print
 
 def new_session_hook(sid):
@@ -140,10 +141,11 @@ def config_database(host, port, user, passwd, database):
     """
     db.config_database(host, port, user, passwd, database)
     db.set_install_status("false")
+    db.save_config()
     db.init_db()
 
 http_request = HttpRequest()
 http_response = HttpResponse()
 if db.get_install_status() and \
         not os.getenv("SCRIPT_NAME").endswith("install.py"):
-    http_response.send_redirect("install.py")
+    http_response.send_redirect("install")

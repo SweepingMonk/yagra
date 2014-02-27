@@ -1,6 +1,7 @@
 """
 user module: contain User class and some functions
 """
+import md5
 from . import db
 
 
@@ -23,6 +24,7 @@ class User(object):
         if not correct, return False.
         """
         result = db.get_user_by_email(self.email)
+        self.password = md5.new(self.password).hexdigest()
         if result == None:
             return False
         elif result[2] != self.password:
@@ -62,7 +64,7 @@ class User(object):
         """
         add current user into database.
         """
-        db.add_user(self.email, self.password)
+        db.add_user(self.email, md5.new(self.password).hexdigest())
 
     def save_default_image(self):
         """
@@ -74,5 +76,5 @@ class User(object):
         """
         change user's password
         """
-        db.change_password(self.id_, self.password)
+        db.change_password(self.id_, md5.new(self.password).hexdigest())
 

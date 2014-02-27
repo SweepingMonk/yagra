@@ -1,23 +1,35 @@
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>注册</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>注册</title>
+<link rel="stylesheet" href="/css/core.css" type="text/css"  charset="utf-8">
 </head>
-<body onload="">
-	<div id="error">
-		<span style="color: red;"><p>{error_message}</p></span>
+<body>
+	<div id="header">
+		<div id="logo">
+			<img width=70px; src="/images/logo.png">
+		</div>
 	</div>
-	<div id="reg_form" class="name">
-	   <form action="/actions/regist.py" method="post" accept-charset="utf-8">
-	   	<label for="email">邮箱：</label>
-		<input type="text" name="email" value="" id="email"><br />
-	   	<label for="password">密码：
-		</label><input type="password" name="password" value="" id="password"><br />
-	   	<label for="repeat_password">再次输入密码：
-		</label><input type="password" name="repeat_password" value="" id="repeat_password">
+	<div id="content">
+		<div id="error">
+			<span class="error"><strong>{error_message}</strong></span>
+		</div>
+		<div id="form">
+			<form action="/regist" method="post" accept-charset="utf-8">
+				<label for="email">邮箱：</label>
+				<input type="text" name="email" value="" id="email" class="field"><br />
+				<label for="password">密码：</label>
+				<input type="password" name="password" value="" id="password" class="field"><br />
+				<label for="repeat_password">确认密码：</label>
+				<input type="password" name="repeat_password" value="" id="repeat_password" class="field"><br />
+
+				<input type="submit" value="注册" class="button">
+				<a href="/login">立即登陆</a>
+			</form>
+		</div>
+	</div>
+	<div id="footer">
 	   
-	   	<p><input type="submit" value="注册"></p>
-	   </form>
 	</div>
 </body>
 </html>

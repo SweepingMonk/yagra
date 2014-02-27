@@ -42,7 +42,7 @@ def post(http_request, http_response):
                 error_message="数据库名不能为空！")
 
     helper.config_database(host, port, user, password, database)
-    http_response.send_redirect("login.py")
+    http_response.send_redirect("login")
 
 if __name__ == '__main__':
     if helper.http_request.http_method == "GET":

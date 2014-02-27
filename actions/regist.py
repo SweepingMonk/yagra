@@ -49,7 +49,7 @@ def post(http_request, http_response):
                 error_message="该邮箱已被注册！")
 
     newuser.add_to_db()
-    http_response.send_redirect("login.py")
+    http_response.send_redirect("login")
 
 if __name__ == '__main__':
     if helper.http_request.http_method == "GET":

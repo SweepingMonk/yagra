@@ -32,6 +32,13 @@ def config_database(host, port, user, passwd, database):
     CONFIG.set("database", "passwd", passwd)
     CONFIG.set("database", "db", database)
 
+def save_config():
+    """
+    save the config to file
+    """
+    with open("../models/config.ini", "w") as configfile:
+        CONFIG.write(configfile)
+
 def get_db_connection():
     """
     this function used to get db connection

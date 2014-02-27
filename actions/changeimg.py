@@ -15,7 +15,7 @@ def get(http_request, http_response):
     session = http_request.get_session()
 
     if "user" not in session:
-        http_response.send_redirect("login.py")
+        http_response.send_redirect("login")
     else:
         http_response.send_html("changeimg.html", error_message="")
 
@@ -48,7 +48,7 @@ def post(http_request, http_response):
     current_user.save_default_image()
     http_request.close_session_file()
 
-    http_response.send_redirect("index.py")
+    http_response.send_redirect("index")
 
 if __name__ == '__main__':
     if helper.http_request.http_method == "GET":

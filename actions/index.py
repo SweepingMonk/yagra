@@ -12,7 +12,7 @@ def get(http_request, http_response):
     """
     session = http_request.get_session()
     if "user" not in session:
-        http_response.send_redirect("login.py")
+        http_response.send_redirect("login")
     else:
         current_user = session["user"]
         image_path = "/userimage/avatar.jpg"

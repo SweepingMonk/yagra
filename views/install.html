@@ -2,27 +2,38 @@
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title>系统安装</title>
+<link rel="stylesheet" href="/css/core.css" type="text/css"  charset="utf-8">
 </head>
 <body onload="">
-<div id="error">
-	<span style="color: red;"><p>{error_message}</p></span>
+<div id="header">
+	<div id="logo">
+		<img width=70px; src="/images/logo.png">
+	</div>
 </div>
-<div id="install_form" class="form">
-	<h1>配置数据库</h1>
-	<form action="/actions/install.py" method="post" accept-charset="utf-8">
-		<label for="host">数据库主机：</label>
-		<input type="text" name="host" value="" id="host"><br />
-		<label for="port">端口：</label>
-		<input type="text" name="port" value="" id="port"><br />
-		<label for="user">用户：</label>
-		<input type="text" name="user" value="" id="user"><br />
-		<label for="password">密码：</label>
-		<input type="password" name="password" value="" id="password"><br />
-		<label for="database">数据库：</label>
-		<input type="text" name="database" value="" id="database"><br />
+<div id="content">
+	<div id="error">
+		<span class="error"><strong>{error_message}</strong></span>
+	</div>
+	<div id="form">
+		<h1>配置数据库</h1>
+		<form action="/install" method="post" accept-charset="utf-8">
+			<label for="host">数据库主机：</label>
+			<input type="text" name="host" value="" id="host" class="field"><br />
+			<label for="port">端口：</label>
+			<input type="text" name="port" value="" id="port" class="field"><br />
+			<label for="user">用户：</label>
+			<input type="text" name="user" value="" id="user" class="field"><br />
+			<label for="password">密码：</label>
+			<input type="password" name="password" value="" id="password" class="field"><br />
+			<label for="database">数据库：</label>
+			<input type="text" name="database" value="" id="database" class="field"><br />
 
-		<p><input type="submit" value="安装"></p>
-	</form>
+			<input type="submit" value="安装" class="button">
+			<a href="/login">取消</a>
+		</form>
+	</div>
+</div>
+<div id="footer">
 </div>
 </body>
 </html>

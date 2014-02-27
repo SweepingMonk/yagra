@@ -12,7 +12,7 @@ def get(http_request, http_response):
     session = http_request.get_session()
     http_request.close_session_file()
     if "user" in session:
-        http_response.send_redirect("index.py")
+        http_response.send_redirect("index")
     else:
         http_response.send_html("login.html", error_message="")
 
@@ -44,7 +44,7 @@ def post(http_request, http_response):
     session = http_request.get_session()
     session["user"] = newuser
     http_request.close_session_file()
-    http_response.send_redirect("index.py")
+    http_response.send_redirect("index")
 
 if __name__ == '__main__':
     if helper.http_request.http_method == "GET":
