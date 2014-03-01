@@ -1,5 +1,6 @@
 Require all granted
 RewriteEngine on
 RewriteRule ^avatar/(\w{32})$ actions/avatar.py?uid=$1
+RewriteRule ^ajaxchangeimg/(\w{32}\.[a-zA-Z]{3,4})$ actions/ajaxchangeimg.py?imgname=$1
 RewriteRule ^([a-z]+)$ actions/$1.py
 

@@ -95,13 +95,14 @@ a{
 	float: right;
 }
 
-#info_box{
+.box{
 	width: 900px;
+	/*height: 180px;*/
 	margin: 10px auto;
 	background: none repeat scroll 0 0 #FFFFFF
 }
 
-#info_box h1{
+h1.tip{
 	font-size: 30px;
 	margin: 10px 0 20px 10px;
 }
@@ -118,8 +119,33 @@ a{
 	margin: 0;
 }
 
-#info .tip{
+#info .action{
 	font-size: 20px;
 	padding: 20px 0 20px 0;
 	margin: 0;
+}
+
+#images{
+	width:900px;
+	height: 120px;
+}
+
+
+#images .image{
+	float: left;
+	width: 100px;
+	height: 100px;
+	padding: 5px;
+	margin: 5px;
+	cursor: pointer;
+}
+
+#images .default{
+	border: solid 3px #0074A2;
+	padding: 2px;
+}
+
+.image img{
+	width: 100px;
+	height: 100px;
 }

@@ -3,6 +3,7 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title>首页</title>
 <link rel="stylesheet" href="/css/core.css" type="text/css"  charset="utf-8">
+<script src="/js/application.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div id="header">
@@ -12,13 +13,19 @@
 	</div>
 </div>
 <div id="content">
-	<div id="info_box">
-		<h1>管理你的账户</h1>
+	<div id="info_box" class="box">
+		<h1 class="tip">管理你的账户</h1>
 		<div id="info" >
 			<img src="{image_path}" alt="默认头像">
 			<p class="address">{email}</p>
-			<p class="tip"><a href="/changeimg">更换默认头像</a> | 
+			<p class="action"><a href="/changeimg">更换默认头像</a> | 
 			<a href="/avatar/{email_digest}" >图像链接</a></p>
+		</div>
+	</div>
+	<div id="image_box" class="box">
+		<h1 class="tip">管理所有头像(点击切换)</h1>
+		<div id="images">
+			{image_list}
 		</div>
 	</div>
 </div>
