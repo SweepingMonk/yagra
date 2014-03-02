@@ -1,6 +1,9 @@
 function modify(event){
 	m = confirm("是否更改选中的头像为默认头像？");
 	element = event.target;
+	if(element instanceof HTMLDivElement){
+		element = element.firstChild
+	}
 	if(m){
 		default_img = document.getElementById("info").getElementsByTagName("img")[0];
 		select_img = element.src;
