@@ -190,6 +190,9 @@ class Application(object):
         if install_status and not script_name.endswith("install.py"):
             self.http_response.send_redirect("install")
             return False
+        if not install_status and script_name.endswith("install.py"):
+            self.http_response.send_redirect("login")
+            return False
         return True
 
     def check_login_status(self):
@@ -244,7 +247,9 @@ class Utils(object):
         config database parameter
         """
         db.config_database(host, port, user, passwd, database)
+        if not db.init_db():
+            return False
         db.set_install_status("false")
         db.save_config()
-        db.init_db()
+        return True
 

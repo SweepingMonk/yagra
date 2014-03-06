@@ -10,6 +10,7 @@ except ImportError:
 
 CONFIG = ConfigParser.RawConfigParser()
 CONFIG.read("../models/config.ini")
+
 def get_install_status():
     """
     check install status
@@ -58,7 +59,7 @@ def get_db_connection():
         conn.select_db(CONFIG.get("database", "db"))
         cur.close()
     except MySQLdb.OperationalError:
-        print "error!"
+        pass
 
     return conn
 
@@ -67,6 +68,8 @@ def init_db():
     init yagra db, create the user table.
     """
     conn = get_db_connection()
+    if conn is None:
+        return False
     cur = conn.cursor()
     cur.execute("DROP TABLE IF EXISTS user")
     sql = """
@@ -82,6 +85,7 @@ def init_db():
     cur.execute(sql)
     cur.close()
     conn.close()
+    return True
 
 def get_user_by_id(id_):
     """

@@ -44,7 +44,11 @@ class InstallAction(helper.Action):
                     "install.html",
                     error_message="数据库名不能为空！")
 
-        helper.Utils.config_database(host, port, user, password, database)
-        http_response.send_redirect("login")
+        if helper.Utils.config_database(host, port, user, password, database):
+            http_response.send_redirect("login")
+        else:
+            http_response.send_html(
+                    "install.html",
+                    error_message="数据库连接错误，请检查参数是否正确！")
 
 helper.Application(InstallAction()).execute()
