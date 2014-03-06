@@ -19,12 +19,76 @@ a{
 	margin: 0 auto;
 }
 
-#logo a{
+/*#logo a{
 	display: inline-block;
 	height: 24px;
 	padding: 13px 0;
 	color: #FFFFFF;
 	float: right;
+}*/
+
+#menu{
+	float: right;
+}
+
+#mainmenu{
+	list-style-type: none;
+	margin: 0;
+	padding: 0
+}
+
+#mainmenu li{
+	float: left;
+	color: #FFFFFF;
+}
+
+#mainmenu .email{
+	margin: 7px;
+	padding: 8px;
+	font-size: 16px;
+}
+
+#mainmenu .subnav{
+	position: relative;
+}
+
+#mainmenu .subnav:hover{
+	background: none repeat scroll 0 0 #FFFFFF;
+}
+
+#mainmenu .subnav img{
+	width: 40px;
+	height: 40px;
+	margin: 5px;
+	padding: 0;
+	border-radius: 5px;
+}
+
+#submenu{
+	position: absolute;
+	top: 45px;
+	left: -110px;
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 2px;
+	width: 160px;	
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+
+#submenu li:hover{
+	background: none repeat scroll 0 0 #1E8CBE;
+}
+#submenu a{
+	display: inline-block;
+	height: 25px;
+	width: 140px;
+	padding: 8px 10px;
+	color: #000000;
+}
+
+#submenu li{
+	float: none;
 }
 #content{
 	margin: 20px auto;

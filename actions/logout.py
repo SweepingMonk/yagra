@@ -5,18 +5,21 @@ import helper
 
 cgitb.enable()
 
-def get(http_request, http_response):
-    """
-    http get function
-    """
-    session = http_request.get_session()
-    if "user" in session:
-        session.clear()
-    http_request.close_session_file()
-    http_response.send_redirect("login")
+class LogoutAction(helper.Action):
 
-if __name__ == '__main__':
-    if helper.http_request.http_method == "GET":
-        get(helper.http_request, helper.http_response)
-    elif helper.http_request.http_method == "POST":
-        get(helper.http_request, helper.http_response)
+    """logout action"""
+
+    def __init__(self):
+        """ """
+        super(LogoutAction, self).__init__()
+
+    def doget(self, http_request, http_response):
+        """ http get function """
+        http_request.delete_session()
+        http_request.close_session_file()
+        http_response.send_redirect("login")
+
+    def dopost(self, http_request, http_response):
+        self.doget(http_request, http_response)
+
+helper.Application(LogoutAction()).execute()

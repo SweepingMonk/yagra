@@ -6,37 +6,38 @@ import helper
 
 cgitb.enable()
 
-def get(http_request, http_response):
-    """
-    http get function
-    """
-    session = http_request.get_session()
-    if "user" not in session:
-        http_response.send_redirect("login")
-    else:
-        current_user = session["user"]
-        images = os.listdir("../userimage/{0}".format(current_user.id_))
-        #image html template
-        defaultimage_template = '<div class="image default"><img src="{0}"></div>'
-        normalimage_template = '<div class="image"><img src="{0}"></div>'
+class IndexAction(helper.Action):
 
-        image_path = "/userimage/avatar.jpg"
+    """index action"""
+
+    def __init__(self):
+        """ """
+        super(IndexAction, self).__init__()
+
+    def doget(self, http_request, http_response):
+        """http get function"""
+        session = http_request.get_session()
+        current_user = session["user"]
+
+        image_path = current_user.get_image_path()
         image_list = ""
-        if current_user.default_image is not None:
-            image_path = "/userimage/{user.id_}/{user.default_image}"\
-                    .format(user=current_user)
+        #image html template
+        default_template = '<div class="image default"><img src="{0}"></div>'
+        normal_template = '<div class="image"><img src="{0}"></div>'
+        try:
+            images = os.listdir("../userimage/{0}".format(current_user.id_))
             for image in images:
                 path = "/userimage/{0}/{1}".format(current_user.id_, image)
                 if current_user.default_image == image:
                     image_list = "".join([
                         image_list,
-                        defaultimage_template.format(path)
-                        ])
+                        default_template.format(path) ])
                 else:
                     image_list = "".join([
                         image_list,
-                        normalimage_template.format(path)
-                        ])
+                        normal_template.format(path)])
+        except OSError:
+            pass
 
         http_request.close_session_file()
         http_response.send_html(
@@ -46,8 +47,8 @@ def get(http_request, http_response):
                 email_digest=current_user.email_digest,
                 image_list=image_list)
 
-if __name__ == '__main__':
-    if helper.http_request.http_method == "GET":
-        get(helper.http_request, helper.http_response)
-    elif helper.http_request.http_method == "POST":
-        get(helper.http_request, helper.http_response)
+    def dopost(self, http_request, http_response):
+        """ http post function """
+        self.doget(http_request, http_response)
+
+helper.Application(IndexAction()).execute()
